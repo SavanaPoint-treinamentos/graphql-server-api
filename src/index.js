@@ -1,39 +1,54 @@
 import express from 'express'
 import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
-import axios from 'axios';
+
 
 
 const books = [
     {
+      id: 1,
       title: 'The Awakening',
       author: 'Kate Chopin',
     },
-    {
+    { id: 2,
       title: 'City of Glass',
       author: 'Paul Auster',
     },
   ];
+// const typeDefs = `
+
+//      type User {
+//         id: ID
+//         name: String
+//         email: String
+//      }
+
+
+//      type Query {
+//         users: [User]
+//      }
+
+
 const typeDefs = `
 
-     type User {
+     type Book {
         id: ID
-        name: String
-        email: String
+        title: String
+        author: String
      }
 
 
      type Query {
-        users: [User]
+        users: [Book]
      }
 `
 
 const resolvers = {
     Query: {
         users: async () => {
-            const { data } = await axios.get('https://jsonplaceholder.typicode.com/users')
+           
 
-            return data
+            return books
         }
     } 
     
